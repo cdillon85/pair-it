@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const volleyball = require('volleyball');
 
 const socketio = require('socket.io');
 
@@ -29,6 +28,5 @@ io.on('connection', (socket) => {
 
  });
 
-app.use(volleyball);
 
-app.use(express.static(__dirname));
+
