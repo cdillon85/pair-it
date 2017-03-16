@@ -7,7 +7,7 @@ const socketio = require('socket.io');
 const app = express();
 
 const server = app.listen(process.env.PORT || 3000, function(){
-  console.log('listening on', app.address().port);
+  console.log('listening on', server.address().port);
 });
 
 app.get('/', function(req, res){
