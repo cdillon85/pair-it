@@ -28,5 +28,7 @@ io.on('connection', (socket) => {
 
  });
 
+app.use(express.static(__dirname));
+
 
 
