@@ -11,8 +11,8 @@ import 'brace/ext/language_tools';
 
 import io from 'socket.io-client';
 
-// const socket = io('http://pair-server.herokuapp.com');
-const socket = io('http://localhost:1337');
+const socket = io('http://pair-server.herokuapp.com');
+// const socket = io('http://localhost:1337');
 
 const mapStateToProps = (state) => {
 	return {
