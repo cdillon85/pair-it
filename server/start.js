@@ -1,6 +1,6 @@
 'use strict'
 
-import {emitAnswer, sendCandidate, Session, getSession} from './SocketFunctions.js'
+const socketFunctions = require('./SocketFunctions')
 
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -114,13 +114,13 @@ if (module === require.main) {
 
       //Receive answer
       socket.on('answer',function(options){
-        emitAnswer(socket, options.userDestiny, options.answer);
+        socketFunctions.emitAnswer(socket, options.userDestiny, options.answer);
       });
 
       //Receive candidates
       socket.on('ice_candidate', function(options){
         console.log('Received ice candidate')
-        sendCandidate(socket, options.userDestiny, options.candidate);
+        socketFunctions.sendCandidate(socket, options.userDestiny, options.candidate);
       });
 
       socket.on('disconnect', () => {
@@ -136,12 +136,12 @@ if (module === require.main) {
 
 function createCall(socket, userCalling, userDestiny, offer) {
   var sessionId = Date.now();
-  var session = new Session(userCalling.id, userDestiny.id);
+  var session = new socketFunctions.Session(userCalling.id, userDestiny.id);
   session.offer = offer;
   sessions.push(session);
 
   socket.broadcast.to(userDestiny.id).emit('receiveOffer', {
-    offer:offer,
+    offer: offer,
     caller: userCalling
   });
 

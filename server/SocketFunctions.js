@@ -1,20 +1,20 @@
-export function emitAnswer(socket, userDestiny,answer){
+function emitAnswer(socket, userDestiny,answer){
   socket.broadcast.to(userDestiny.id).emit('answer', answer);
 }
 
-export function sendCandidate(socket, userDestiny, candidate){
+function sendCandidate(socket, userDestiny, candidate){
   socket.broadcast.to(userDestiny.id).emit('receiveIceCandidate', candidate);
 }
 
-export function Session(idCaller, idCallee){
-  this.idCaller = idCaller; 
+function Session(idCaller, idCallee){
+  this.idCaller = idCaller;
   this.idCallee = idCallee;
   this.id = Date.now();
   this.status = null;
 }
 
 
-export function getSession(sessionId){
+function getSession(sessionId){
 
   var possibleSessions = _.filter(sessions, function(session){
     return session.id == sessionId;
@@ -25,3 +25,9 @@ export function getSession(sessionId){
   return result;
 }
 
+module.exports = {
+  emitAnswer,
+  sendCandidate,
+  Session,
+  getSession
+};
