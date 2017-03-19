@@ -10,8 +10,6 @@ const app = express();
 
 const io = socketio(server);
 
-
-
 var sessions = [], users = [];
 
 io.on('connection', (socket) => {
@@ -27,8 +25,8 @@ io.on('connection', (socket) => {
     user.id = socket.id;
     users.push(user);
     console.log('user_connected', users.length);
-//was io.emit
-    socket.emit('refresh_user_list', users);
+
+    io.emit('refresh_user_list', users);
   });
 
   //Receive offer
