@@ -103,7 +103,7 @@ if (module === require.main) {
         users.push(user);
         console.log('user_connected', users.length);
     //was io.emit
-        socket.emit('refresh_user_list', users);
+        io.emit('refresh_user_list', users);
       });
 
       //Receive offer
