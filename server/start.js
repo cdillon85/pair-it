@@ -92,15 +92,21 @@ if (module === require.main) {
   io.on('connection', (socket) => {
       console.log('a user connected');
 
+
+//TEXT-EDITOR SOCKET EVENTS
       socket.on('coding event', function(data) {
-        // console.log('in EXPRESS coding event');
-        // console.log(data);
         socket.broadcast.emit('receive code', {code: data.code});
       });
 
       socket.on('opened file', function (file) {
-        socket.broadcast.emit('new file is opened', file)
+        socket.broadcast.emit('new file is opened', file);
       })
+
+      socket.on('tab changed', function (index){
+        socket.broadcast.emit('change to new tab', index);
+      })
+
+      
 
       socket.on('user_connected', function(user){
         user.id = socket.id;
