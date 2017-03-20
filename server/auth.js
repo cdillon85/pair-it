@@ -67,7 +67,7 @@ OAuth.setupStrategy({
   config: {
     clientID: env.GITHUB_CLIENT_ID,
     clientSecret: env.GITHUB_CLIENT_SECRET,
-    callbackURL: `${app.baseUrl}/api/auth/login/github`,
+    callbackURL: `http://pair-server.herokuapp.com/api/auth/login/github`,
   },
   passport
 })
