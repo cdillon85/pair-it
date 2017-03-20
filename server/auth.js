@@ -126,12 +126,13 @@ auth.post('/login/local', passport.authenticate('local', { successRedirect: '/',
 
 // GET requests for OAuth login:
 // Register this route as a callback URL with OAuth provider
-auth.get('/login/:strategy', (req, res, next) =>
+auth.get('/login/:strategy', (req, res, next) =>{
+  console.log('Request: ', req);
   passport.authenticate(req.params.strategy, {
     scope: 'email',
     successRedirect: '/',
     // Specify other config here, such as "scope"
-  })(req, res, next)
+  })(req, res, next)}
 )
 
 auth.post('/logout', (req, res, next) => {
@@ -140,4 +141,3 @@ auth.post('/logout', (req, res, next) => {
 })
 
 module.exports = auth
-
