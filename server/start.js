@@ -98,6 +98,10 @@ if (module === require.main) {
         socket.broadcast.emit('receive code', {code: data.code});
       });
 
+      socket.on('opened file', function (file) {
+        socket.broadcast.emit('new file is opened', file)
+      })
+
       socket.on('user_connected', function(user){
         user.id = socket.id;
         users.push(user);
