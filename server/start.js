@@ -134,6 +134,7 @@ if (module === require.main) {
       });
 
       socket.on('disconnect', () => {
+        users = users.filter((user) => user.id !== socket.id);
         console.log('user disconnected');
       });
   });
