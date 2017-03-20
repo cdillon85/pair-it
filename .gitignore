@@ -13,4 +13,5 @@ npm-debug.log
 
 
 # Secrets
-pair-server.env.json
+.pair-server.env.json
+.env
