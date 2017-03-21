@@ -104,7 +104,7 @@ if (module === require.main) {
       });
 
       socket.on('opened file', function (data) {
-        socket.broadcast.to(data.room).emit('new file is opened', data.file);
+        socket.broadcast.to(data.room).emit('new file is opened', data);
       })
 
       socket.on('tab changed', function (data){
