@@ -92,18 +92,23 @@ if (module === require.main) {
   io.on('connection', (socket) => {
       console.log('a user connected');
 
+  socket.on('room', (data) => {
+    console.log('in server socket for room', data.room)
+    socket.join(data.room)
+  })
+
 
 //TEXT-EDITOR SOCKET EVENTS
       socket.on('coding event', function(data) {
-        socket.broadcast.emit('receive code', {code: data.code});
+        socket.broadcast.to(data.room).emit('receive code', {code: data.code});
       });
 
-      socket.on('opened file', function (file) {
-        socket.broadcast.emit('new file is opened', file);
+      socket.on('opened file', function (data) {
+        socket.broadcast.to(data.room).emit('new file is opened', data.file);
       })
 
-      socket.on('tab changed', function (index){
-        socket.broadcast.emit('change to new tab', index);
+      socket.on('tab changed', function (data){
+        socket.broadcast.to(data.room).emit('change to new tab', data.index);
       })
 
       
