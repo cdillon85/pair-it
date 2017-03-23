@@ -95,7 +95,11 @@ if (module === require.main) {
   socket.on('room', (data) => {
     console.log('in server socket for room', data.room)
     socket.join(data.room)
-  })
+    socket.broadcast.to(data.room).emit('add client', data)
+    })
+
+  socket.on('I am here', (data) => 
+    socket.broadcast.to(data.room).emit('store collaborator', {name: data.name}))
 
 
 //TEXT-EDITOR SOCKET EVENTS
