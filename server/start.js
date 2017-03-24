@@ -100,7 +100,6 @@ if (module === require.main) {
 
   socket.on('I am here', (data) => {
     socket.broadcast.to(data.room).emit('store collaborator', {playerInfo: data.playerInfo})
-    // socket.broadcast.to(data.room).emit('user_connected', data.playerInfo)
   })
 
   socket.on('Pair with me', (data) => {
@@ -125,7 +124,18 @@ if (module === require.main) {
         socket.broadcast.to(data.room).emit('change to new tab', {index: data.index, file: data.file});
       })
 
+      socket.on('save file', function(data) {
+        socket.broadcast.to(data.room).emit('file was saved', data)
+      })
 
+      socket.on('added a tab', function(data) {
+        socket.broadcast.to(data.room).emit('new tab added', { length: data.length })
+      })
+
+      socket.on('closed tab', function(data) {
+        console.log(data)
+        socket.broadcast.to(data.room).emit('a tab was closed', { fileToClose: data.fileToClose, fileToActive: data.fileToActive, index: data.index })
+      })
 
       socket.on('user_connected', function(user){
         user.id = socket.id;
