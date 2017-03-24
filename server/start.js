@@ -98,9 +98,19 @@ if (module === require.main) {
     socket.broadcast.to(data.room).emit('add client', data)
     })
 
-  socket.on('I am here', (data) => 
-    socket.broadcast.to(data.room).emit('store collaborator', {name: data.name}))
+  socket.on('I am here', (data) => {
+    socket.broadcast.to(data.room).emit('store collaborator', {playerInfo: data.playerInfo})
+    // socket.broadcast.to(data.room).emit('user_connected', data.playerInfo)
+  })
 
+  socket.on('Pair with me', (data) => {
+    console.log('pairing with another: ', data);
+    socket.broadcast.to(data.room).emit('Partner', {name: data.name, url: data.url})
+  })
+
+  socket.on('go to pair room', (data) => {
+    socket.boradcast.to(data.room).emit('go to pair room')
+  })
 
 //TEXT-EDITOR SOCKET EVENTS
       socket.on('coding event', function(data) {
@@ -115,7 +125,7 @@ if (module === require.main) {
         socket.broadcast.to(data.room).emit('change to new tab', {index: data.index, file: data.file});
       })
 
-      
+
 
       socket.on('user_connected', function(user){
         user.id = socket.id;
@@ -127,12 +137,12 @@ if (module === require.main) {
 
       //Receive offer
       socket.on('start_call_with', function(options){
-        console.log('Request call start with '+options.userDestiny.id + ' from ' + options.userCalling.id);
+        console.log('Request call start with ' + options.userDestiny.id + ' from ' + options.userCalling.id);
         createCall(socket, options.userCalling, options.userDestiny, options.offer);
       });
 
       //Receive answer
-      socket.on('answer',function(options){
+      socket.on('answer', function(options){
         socketFunctions.emitAnswer(socket, options.userDestiny, options.answer);
       });
 
