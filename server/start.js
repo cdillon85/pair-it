@@ -124,7 +124,8 @@ if (module === require.main) {
       })
 
       socket.on('closed tab', function(data) {
-        socket.broadcast.to(data.room).emit('a tab was closed', { filePath: data.filePath, text: data.text })
+        console.log(data)
+        socket.broadcast.to(data.room).emit('a tab was closed', { fileToClose: data.fileToClose, fileToActive: data.fileToActive, index: data.index })
       })
 
 
