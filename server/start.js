@@ -121,6 +121,7 @@ if (module === require.main) {
       })
 
       socket.on('tab changed', function (data){
+        console.log('tab changed')
         socket.broadcast.to(data.room).emit('change to new tab', {index: data.index, file: data.file});
       })
 
