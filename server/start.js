@@ -163,6 +163,16 @@ if (module === require.main) {
         socketFunctions.sendCandidate(socket, options.userDestiny, options.candidate);
       });
 
+/////////////////////// DRIVER - NAVIGATOR //////////////////////////////////////
+
+      socket.on('driver selected', function(data) {
+        socket.broadcast.to(data.room).emit('partner picked self as driver', {})
+      });
+
+      socket.on('navigator selected', function(data) {
+        socket.broadcast.to(data.room).emit('partner picked you as driver', {})
+      });
+
       socket.on('disconnect', () => {
         users = users.filter((user) => user.id !== socket.id);
         console.log('user disconnected');
