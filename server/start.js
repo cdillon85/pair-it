@@ -104,7 +104,7 @@ if (module === require.main) {
       socket.leave(data.room);
     });
 
-  ////////////////////////////////////// TEXT EDITOR //////////////////////////////////////
+  ////////////////////////////////////// TEXT-EDITOR //////////////////////////////////////
 
     socket.on('coding event', (data) => {
       socket.broadcast.to(data.room).emit('receive code', {code: data.code});
