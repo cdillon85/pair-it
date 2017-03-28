@@ -92,17 +92,26 @@ if (module === require.main) {
 
     socket.on('Pair with me', (data) => {
       console.log('pairing with another: ', data);
-      socket.broadcast.to(data.room).emit('Partner', {name: data.name, url: data.url});
+      socket.broadcast.to(data.room).emit('Partner', {name: data.name, url: data.url, caller: data.caller});
     });
 
     socket.on('go to pair room', (data) => {
       socket.broadcast.to(data.room).emit('go to pair room');
     });
 
+    socket.on('call answered', (data) => {
+      console.log('CALL ANSWERED: ', data)
+      socket.broadcast.to(data.room).emit('partner answered call', {caller: data.caller, receiver: data.receiver});
+    });
+
     socket.on('leaving room', (data) => {
       socket.broadcast.to(data.room).emit('remove collaborator', {playerInfo: data.playerInfo});
       socket.leave(data.room);
     });
+
+    socket.on('set available', (data) => {
+      socket.broadcast.to(data.room).emit('make user available', { name: data.name })
+    })
 
   ////////////////////////////////////// TEXT-EDITOR //////////////////////////////////////
 
@@ -149,6 +158,7 @@ if (module === require.main) {
 
     socket.on('closed connection', (data) => {
       socket.broadcast.to(data.room).emit('peer connection severed');
+      sessions = [];
     });
 
     //Receive answer
@@ -190,7 +200,7 @@ if (module === require.main) {
     var session = new socketFunctions.Session(userCalling.id, userDestiny.id);
     session.offer = offer;
     sessions.push(session);
-
+    console.log(sessions)
     socket.broadcast.to(userDestiny.id).emit('receiveOffer', {
       offer: offer,
       caller: userCalling
