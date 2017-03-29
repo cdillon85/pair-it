@@ -117,7 +117,7 @@ if (module === require.main) {
   ////////////////////////////////////// TEXT-EDITOR //////////////////////////////////////
 
     socket.on('coding event', (data) => {
-      socket.broadcast.to(data.room).emit('receive code', {code: data.code});
+      socket.broadcast.to(data.room).emit('receive code', {code: data.code, tabIndex: data.tabIndex});
     });
 
     socket.on('opened file', (data) => {
