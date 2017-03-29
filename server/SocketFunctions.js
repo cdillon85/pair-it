@@ -3,7 +3,7 @@ function emitAnswer(socket, userDestiny,answer){
 }
 
 function sendCandidate(socket, userDestiny, candidate){
-  if (userDestiny.id) socket.broadcast.to(userDestiny.id).emit('receiveIceCandidate', candidate);
+  if (userDestiny) socket.broadcast.to(userDestiny.id).emit('receiveIceCandidate', candidate);
 }
 
 function Session(idCaller, idCallee){
