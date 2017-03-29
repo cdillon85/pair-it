@@ -100,18 +100,19 @@ if (module === require.main) {
     });
 
     socket.on('call answered', (data) => {
-      console.log('CALL ANSWERED: ', data)
+      console.log('CALL ANSWERED: ', data);
       socket.broadcast.to(data.room).emit('partner answered call', {caller: data.caller, receiver: data.receiver});
     });
 
     socket.on('leaving room', (data) => {
+      console.log(data.playerInfo.name,' left room: ', data.room);
       socket.broadcast.to(data.room).emit('remove collaborator', {playerInfo: data.playerInfo});
       socket.leave(data.room);
     });
 
     socket.on('set available', (data) => {
-      socket.broadcast.to(data.room).emit('make user available', { name: data.name })
-    })
+      socket.broadcast.to(data.room).emit('make user available', { name: data.name });
+    });
 
   ////////////////////////////////////// TEXT-EDITOR //////////////////////////////////////
 
@@ -182,6 +183,11 @@ if (module === require.main) {
       socket.broadcast.to(data.room).emit('partner picked you as driver', {});
     });
 
+    socket.on('send file tree', (data) => {
+      console.log(data)
+      socket.broadcast.to(data.room).emit('partner selected files', { files: data.files });
+    });
+
     ////////////////////////////////////// DISCONNECT //////////////////////////////////////
 
     socket.on('disconnect', () => {
@@ -200,7 +206,6 @@ if (module === require.main) {
     var session = new socketFunctions.Session(userCalling.id, userDestiny.id);
     session.offer = offer;
     sessions.push(session);
-    console.log(sessions)
     socket.broadcast.to(userDestiny.id).emit('receiveOffer', {
       offer: offer,
       caller: userCalling
