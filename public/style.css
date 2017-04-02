@@ -1,0 +1,27 @@
+@import "~font-awesome/css/font-awesome.css";
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+
+body {
+    font-family: "proxima-nova", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: #1A1A1A ;
+    text-align: center;
+}
+
+h1 {
+font-family: "fatfrank", sans-serif;
+color: #1A1A1A ;
+}
+
+.callToAction{
+    font-size: 20px;
+    color: grey;
+    font-style: italic;
+    margin: 10px;
+}
+
+.callToAction:hover{
+    cursor: default;
+    text-decoration: underline;
+}
