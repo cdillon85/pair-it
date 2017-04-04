@@ -4,7 +4,7 @@ Pair.it is a desktop app for remote pair programming built by Mike Peritz, James
 
 Pair.it was built using React, Redux, React-Redux, Node.js, Express.js, Electron, HTML, CSS, Socket.io, WebRTC, GitHub API, Ace Code Editor API, Enzyme, Chai.
 
-This Git repository contains the files for Pair.it's server which is currently hosted at pair-it.herokuapp.com.
+This Github repository contains the files for Pair.it's server which is currently hosted at pair-it.herokuapp.com.
 
 To view the source code for the Pair.it desktop application checkout https://github.com/jjdeehan/pair-it-app.
 
